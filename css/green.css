@@ -1,0 +1,57 @@
+*{
+    margin:0;
+    padding:0;
+}
+html{
+    width: 100%;
+    height: 100%;
+    background-color: rgb(212, 222, 164);
+    position: relative;
+}
+.xie{
+    writing-mode: vertical-rl;
+    color: rgb(88, 99, 31);
+    padding-left: 60px;
+    padding-top:40px;
+    float:left;
+}
+.xueding{
+    padding-top:40px;
+    font-size: 100px;
+    color: rgb(88, 99, 31);
+    font-family: "华文琥珀";
+    margin-left: 30px;
+    float: left;
+}
+.mocha{
+    padding-top:40px;
+    font-size: 30px;
+    color: rgb(88, 99, 31);
+    font-family: "华文琥珀";
+    margin-left: 30px;
+    float: left;
+}
+.mocha2{
+    padding-top:40px;
+    font-size: 10px;
+    color: rgb(88, 99, 31);
+    font-family: "宋体";
+    font-weight: 600;
+    margin-left: 30px;
+    float: left;
+}
+.mocha2:first-child{
+    padding-top:40px;
+    font-size: 10px;
+    color: rgb(88, 99, 31);
+    font-family: "宋体";
+    font-weight: 600;
+    float: left;
+}
+.mochaimg{
+    width: 292px;
+    height: 525px;
+    position: absolute;
+	bottom: 0px;
+    right:0px
+}
