@@ -58,7 +58,7 @@ body,.navbar,.navbar ul{
     color:#fb7299;
 }
 .navbar input:checked ~ ul{
-    width: 350px;
+    width: 70vw;
 }
 .navbar input:checked ~ span:nth-child(2){
     top: calc(50% - 2px);
