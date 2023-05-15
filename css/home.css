@@ -70,6 +70,7 @@
   
   .header__button {
     background: #fff;
+    width: 90%;
     color: #66afe9;
     border: none;
     padding: 0.8rem 2rem;
@@ -79,6 +80,7 @@
     text-align: center;
     transition: all 0.3s ease;
     display: block;
+    margin:auto;
     animation: fadeIn 2s;
   }
   
@@ -88,7 +90,7 @@
   }
   
   .section {
-    padding: 5rem 0;
+    padding: 5rem 1rem;
   }
   
   .section__title {
@@ -103,6 +105,7 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+    padding-left: 0;
   }
   
   .products__item {
@@ -154,7 +157,7 @@
   }
   
   .contact__form {
-    max-width: 600px;
+    max-width: 700px;
     margin: 0 auto;
     text-align: center;
     animation: fadeInUp 1s;
@@ -168,24 +171,29 @@
   .contact__form-label {
     display: block;
     margin-bottom: 0.5rem;
+    margin-left: 30px;
   }
   
   .contact__form-input {
-    width: 100%;
+    width: 90%;
     padding: 0.8rem;
     border-radius: 5px;
     margin-top: 0.5rem;
+    display: block;
+    margin: auto;
   }
   
   .contact__form-textarea {
-    width: 100%;
+    width: 90%;
     height: 150px;
     padding: 0.8rem;
     border-radius: 5px;
     margin-top: 0.5rem;
     border-width: 2px;
     border-color: black;
-    resize:none
+    resize:none;
+    display: block;
+    margin: auto;
   }
   
   .contact__form-button {
