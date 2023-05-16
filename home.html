@@ -32,21 +32,21 @@
 
       <li class="products__item">
         <h3 class="products__name">色母粒</h3>
-        <img src="https://via.placeholder.com/250x150" alt="色母粒">
+        <img src="./img/红.png" alt="色母粒">
         <p class="products__description">这是一些关于色母粒的描述信息。这是一些关于色母粒的描述信息。</p>
         <a href="#contact" class="products__button">联系我们</a>
       </li>
 
       <li class="products__item">
         <h3 class="products__name">色母粒</h3>
-        <img src="https://via.placeholder.com/250x150" alt="色母粒">
+        <img src="./img/绿.png" alt="色母粒">
         <p class="products__description">这是一些关于色母粒的描述信息。这是一些关于色母粒的描述信息。</p>
         <a href="#contact" class="products__button">联系我们</a>
       </li>
 
       <li class="products__item">
         <h3 class="products__name">色母粒</h3>
-        <img src="https://via.placeholder.com/250x150" alt="色母粒">
+        <img src="./img/黄.png" alt="色母粒">
         <p class="products__description">这是一些关于色母粒的描述信息。这是一些关于色母粒的描述信息。</p>
         <a href="#contact" class="products__button">联系我们</a>
       </li>
@@ -104,7 +104,12 @@
             Subject: "瑞利硕丰的邮件",
             Body: body
         }).then(
-            message => alert(message)
+            message => {
+              alert("发送成功");
+              document.getElementById("name").value = "";
+              document.getElementById("email").value = "";
+              document.getElementById("message").value = "";
+            }
         );
     })
 </script>

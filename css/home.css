@@ -101,6 +101,11 @@
     animation: fadeInDown 1s;
   }
   
+  .products__item>img{
+    width: 250px;
+    height: auto;
+  }
+
   .products__list {
     list-style: none;
     display: flex;
