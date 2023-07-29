@@ -49,9 +49,9 @@ html{
     float: left;
 }
 .mochaimg{
-    width: 292px;
-    height: 525px;
+    width: 35vh;
     position: absolute;
 	bottom: 0px;
-    right:0px
+    right:0px;
+    opacity: 0.9;
 }

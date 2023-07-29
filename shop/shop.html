@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>别做梦了</title>
+    <link href="shop.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="header_title">假如你有一个亿</div>
+    <div class="center">
+
+        <div class="header_picture">
+            <img src="../img/angle.png" alt="这只是一个图标">
+            <div>以下的东西随便购买</div>
+        </div>
+
+        <div id="money">100000000</div>
+
+        <div class="shop">
+            <div class="goods">
+                <img src="./img/hanbao.jpeg" alt="">
+                <div class="goods_name">汉堡</div>
+                <div id="price">￥17</div>
+                <div class="op">
+                    <button id="cx">撤销</button>
+                    <input class="suber" type="number" pattern="\d*" id="input1" value="0" readonly="readonly">
+                    <button id="bt">购买</button>
+                </div>
+            </div>
+            <div class="goods">
+                <img src="./img/mocha.png" alt="">
+                <div class="goods_name">奶茶</div>
+                <div id="price">￥7</div>
+                <div class="op">
+                    <button id="cx">撤销</button>
+                    <input class="suber" type="number" pattern="\d*" id="input1" value="0" readonly="readonly">
+                    <button id="bt">购买</button>
+                </div>
+            </div>
+            <div class="goods">
+                <img src="./img/shandiche.jpg" alt="">
+                <div class="goods_name">山地车</div>
+                <div id="price">￥15000</div>
+                <div class="op">
+                    <button id="cx">撤销</button>
+                    <input class="suber" type="number" pattern="\d*" id="input1" value="0" readonly="readonly">
+                    <button id="bt">购买</button>
+                </div>
+            </div>
+            <div class="goods">
+                <img src="./img/danfan.jpeg" alt="">
+                <div class="goods_name">单反相机</div>
+                <div id="price">￥5000</div>
+                <div class="op">
+                    <button id="cx">撤销</button>
+                    <input class="suber" type="number" pattern="\d*" id="input1" value="0" readonly="readonly">
+                    <button id="bt">购买</button>
+                </div>
+            </div>
+            <div class="goods">
+                <img src="./img/paoche.jpg" alt="">
+                <div class="goods_name">跑车</div>
+                <div id="price">￥3000000</div>
+                <div class="op">
+                    <button id="cx">撤销</button>
+                    <input class="suber" type="number" pattern="\d*" id="input1" value="0" readonly="readonly">
+                    <button id="bt">购买</button>
+                </div>
+            </div>
+            <div class="goods">
+                <img src="./img/zhishengfeiji.jpeg" alt="">
+                <div class="goods_name">直升飞机</div>
+                <div id="price">￥400000</div>
+                <div class="op">
+                    <button id="cx">撤销</button>
+                    <input class="suber" type="number" pattern="\d*" id="input1" value="0" readonly="readonly">
+                    <button id="bt">购买</button>
+                </div>
+            </div>
+            <div class="goods">
+                <img src="./img/lvrouhuoshao.jpg" alt="">
+                <div class="goods_name">驴肉火烧</div>
+                <div id="price">￥12</div>
+                <div class="op">
+                    <button id="cx">撤销</button>
+                    <input class="suber" type="number" pattern="\d*" id="input1" value="0" readonly="readonly">
+                    <button id="bt">购买</button>
+                </div>
+            </div>
+            <div class="goods">
+                <img src="./img/tengxunhuiyuan.jpg" alt="">
+                <div class="goods_name">腾讯会员</div>
+                <div id="price">￥30</div>
+                <div class="op">
+                    <button id="cx">撤销</button>
+                    <input class="suber" type="number" pattern="\d*" id="input1" value="0" readonly="readonly">
+                    <button id="bt">购买</button>
+                </div>
+            </div>
+            <div class="goods">
+                <img src="./img/switch.jpg" alt="">
+                <div class="goods_name">switch</div>
+                <div id="price">￥2500</div>
+                <div class="op">
+                    <button id="cx">撤销</button>
+                    <input class="suber" type="number" pattern="\d*" id="input1" value="0" readonly="readonly">
+                    <button id="bt">购买</button>
+                </div>
+            </div>
+            <div class="goods">
+                <img src="./img/saierda.png" alt="">
+                <div class="goods_name">塞尔达：王国之泪</div>
+                <div id="price">￥400</div>
+                <div class="op">
+                    <button id="cx">撤销</button>
+                    <input class="suber" type="number" pattern="\d*" id="input1" value="0" readonly="readonly">
+                    <button id="bt">购买</button>
+                </div>
+            </div>
+        </div>
+        <div class="footer">此网站学习了<a href="https://neal.fun/spend/">NEAL.FUN</a></div>
+    </div>
+</body>
+<script>
+    //查询有多少个商品
+    var finaltotal = 100000000;
+    var next_sum = 0;
+    var previous_sum = 100000000;
+    var n_number = document.querySelectorAll(".goods");
+    var n = 0;
+    n_number.forEach(function (nnumber) {
+        n++;
+    });
+
+    //数组声明
+    const arr = new Array(n).fill(0);
+    const pircearr = new Array(n).fill(0);
+</script>
+<script>
+    //获取每个物品的价格
+    var priceText = document.querySelectorAll("#price");
+    var k = 0;
+    priceText.forEach(function (pary) {
+        var pricet = pary.textContent;
+        var priceValue = pricet.replace("￥", "");
+        pircearr[k] = parseFloat(priceValue);
+        k++;
+    });
+
+</script>
+
+<script>
+
+    //------------------------------------------------------------------------------------
+    function dijian() {
+        const moneyElem = document.querySelector("#money");
+        const moneytotal = parseInt(moneyElem.innerHTML);
+
+        // 计算每次递减的金额数和递减所需时间
+        const decrement = Math.ceil((moneytotal - finaltotal) / 300) + 1; // 每次递减的金额数
+        var duration = -(moneytotal - finaltotal) / 20 + 50; // 每次递减所需时间（单位：毫秒）
+
+        if (duration < 1) {
+            duration = 1;
+        }
+
+        let currentTotal = moneytotal;
+        let previousTime = null;
+
+        function animate(currentTime) {
+            if (!previousTime) {
+                previousTime = currentTime;
+            }
+
+            const timeElapsed = currentTime - previousTime;
+            if (timeElapsed >= duration) {
+                previousTime = currentTime;
+                currentTotal -= decrement;
+                if (currentTotal <= finaltotal) {
+                    currentTotal = finaltotal;
+                }
+                moneyElem.innerHTML = currentTotal;
+            }
+
+            if (currentTotal > finaltotal) {
+                requestAnimationFrame(animate);
+            }
+        }
+
+        requestAnimationFrame(animate);
+    }
+
+    function dijia() {
+        const moneyElem = document.querySelector("#money");
+        const moneytotal = parseInt(moneyElem.innerHTML);
+
+        const decrement = Math.ceil((finaltotal - moneytotal) / 200) + 1; // 每次递减的金额数
+        var duration = -(finaltotal - moneytotal) / 20 + 50; // 每次递减所需时间（单位：毫秒）\
+
+        if (duration < 1) {
+            duration = 1;
+        }
+
+        let currentTotal = moneytotal;
+        let previousTime = null;
+
+        function animate(currentTime) {
+            if (!previousTime) {
+                previousTime = currentTime;
+            }
+
+            const timeElapsed = currentTime - previousTime;
+            if (timeElapsed >= duration) {
+                previousTime = currentTime;
+                currentTotal += decrement;
+                if (currentTotal >= finaltotal) {
+                    currentTotal = finaltotal;
+                }
+                moneyElem.innerHTML = currentTotal;
+            }
+
+            if (currentTotal < finaltotal) {
+                requestAnimationFrame(animate);
+            }
+        }
+
+        requestAnimationFrame(animate);
+    }
+//--------------------------------------------------------------------------------------
+</script>
+
+<script>
+    //遍历每个物品购买量
+    function bianli() {
+        var arrays = document.querySelectorAll("#input1");
+        var k = 0;
+        arrays.forEach(function (array) {
+            arr[k] = parseFloat(array.value);
+            k++;
+        });
+        total();
+    }
+
+    function total() {
+        var sum = 100000000;
+        for (var i = 0; i < arr.length; i++) {
+            //价格定制
+            sum -= arr[i] * pircearr[i];
+        }
+        //document.getElementById("money").innerHTML = 100000000;
+        finaltotal = sum;
+    }
+
+</script>
+
+<script>
+    //购买
+    const jiafa = document.querySelectorAll('#bt');
+    jiafa.forEach(button => {
+        button.addEventListener('click', () => {
+            const qyg = button.previousElementSibling;
+            if (qyg && qyg.classList.contains('suber')) {
+                let count = parseInt(qyg.value);
+                qyg.value = count + 1;
+                bianli();
+            }
+            dijian();
+        });
+    });
+
+    //撤销
+    const chexiao = document.querySelectorAll('#cx');
+    chexiao.forEach(button => {
+        button.addEventListener('click', () => {
+            const hyg = button.nextElementSibling;
+            if (hyg && hyg.classList.contains('suber')) {
+                let count = parseInt(hyg.value);
+                if (count <= 0) {
+                    hyg.value = 0;
+                } else {
+                    hyg.value = count - 1;
+                    bianli();
+                    dijia();
+                }
+            }
+        });
+    });
+</script>
+
+</html>
