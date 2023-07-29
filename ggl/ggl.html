@@ -103,6 +103,12 @@
             isDrawing = true;
             [lastX, lastY] = [e.clientX - canvas.offsetLeft, e.clientY - canvas.offsetTop]; // 更新上一次绘制的坐标
         });
+        //监听触摸按下事件
+        canvas.addEventListener("touchstart", (e) => {
+            isDrawing = true;
+            const touch = e.touches[0];
+            [lastX, lastY] = [touch.clientX - canvas.offsetLeft, touch.clientY - canvas.offsetTop]; // 更新上一次绘制的坐标
+        });
 
         // 监听鼠标移动事件
         canvas.addEventListener("mousemove", (e) => {
@@ -136,8 +142,46 @@
             }
         });
 
+        // 监听触摸移动事件
+        canvas.addEventListener("touchmove", (e) => {
+            if (!isDrawing) return; // 如果没有按下鼠标，则不进行绘制
+
+            const touch = e.touches[0];
+            const [x, y] = [touch.clientX - canvas.offsetLeft, touch.clientY - canvas.offsetTop];
+            context.globalCompositeOperation = "destination-out"; // 橡皮擦模式
+            context.beginPath();
+            context.moveTo(lastX, lastY); // 将起始点移动到上一次绘制的位置
+            context.lineTo(x, y); // 从上一次绘制的位置画一条线到当前位置
+            context.lineWidth = 40; // 设置刮刮乐线的宽度
+            context.lineCap = "round"; // 设置线的末端为圆形
+            context.stroke(); // 绘制路径
+
+            // 统计刮开的像素数
+            const imageData = context.getImageData(0, 0, canvas.width, canvas.height);
+            const pixelData = imageData.data;
+            erasedPixels = 0;
+            for (let i = 3; i < pixelData.length; i += 4) {
+                if (pixelData[i] === 0) {
+                    erasedPixels++;
+                }
+            }
+
+            [lastX, lastY] = [x, y]; // 更新上一次绘制的坐标
+
+            // 判断刮开的区域是否超过95%
+            if (erasedPixels / (canvas.width * canvas.height) >= 0.95) {
+                //context.clearRect(0, 0, canvas.width, canvas.height);
+
+            }
+        });
+
         // 监听鼠标松开事件
         canvas.addEventListener("mouseup", () => {
+            isDrawing = false;
+        });
+
+        // 监听触摸松开事件
+        canvas.addEventListener("touchend", () => {
             isDrawing = false;
         });
 
@@ -165,6 +209,18 @@
             canvas.addEventListener("mousedown", (e) => {
                 isDrawing = true;
                 [lastX, lastY] = [e.clientX - canvas.offsetLeft, e.clientY - canvas.offsetTop]; // 更新上一次绘制的坐标
+            });
+
+            // 监听鼠标按下事件
+            canvas.addEventListener("mousedown", (e) => {
+                isDrawing = true;
+                [lastX, lastY] = [e.clientX - canvas.offsetLeft, e.clientY - canvas.offsetTop]; // 更新上一次绘制的坐标
+            });
+            //监听触摸按下事件
+            canvas.addEventListener("touchstart", (e) => {
+                isDrawing = true;
+                const touch = e.touches[0];
+                [lastX, lastY] = [touch.clientX - canvas.offsetLeft, touch.clientY - canvas.offsetTop]; // 更新上一次绘制的坐标
             });
 
             // 监听鼠标移动事件
@@ -199,8 +255,46 @@
                 }
             });
 
+            // 监听触摸移动事件
+            canvas.addEventListener("touchmove", (e) => {
+                if (!isDrawing) return; // 如果没有按下鼠标，则不进行绘制
+
+                const touch = e.touches[0];
+                const [x, y] = [touch.clientX - canvas.offsetLeft, touch.clientY - canvas.offsetTop];
+                context.globalCompositeOperation = "destination-out"; // 橡皮擦模式
+                context.beginPath();
+                context.moveTo(lastX, lastY); // 将起始点移动到上一次绘制的位置
+                context.lineTo(x, y); // 从上一次绘制的位置画一条线到当前位置
+                context.lineWidth = 40; // 设置刮刮乐线的宽度
+                context.lineCap = "round"; // 设置线的末端为圆形
+                context.stroke(); // 绘制路径
+
+                // 统计刮开的像素数
+                const imageData = context.getImageData(0, 0, canvas.width, canvas.height);
+                const pixelData = imageData.data;
+                erasedPixels = 0;
+                for (let i = 3; i < pixelData.length; i += 4) {
+                    if (pixelData[i] === 0) {
+                        erasedPixels++;
+                    }
+                }
+
+                [lastX, lastY] = [x, y]; // 更新上一次绘制的坐标
+
+                // 判断刮开的区域是否超过95%
+                if (erasedPixels / (canvas.width * canvas.height) >= 0.95) {
+                    //context.clearRect(0, 0, canvas.width, canvas.height);
+
+                }
+            });
+
             // 监听鼠标松开事件
             canvas.addEventListener("mouseup", () => {
+                isDrawing = false;
+            });
+
+            // 监听触摸松开事件
+            canvas.addEventListener("touchend", () => {
                 isDrawing = false;
             });
 
