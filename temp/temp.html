@@ -1,31 +1,136 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-  <style>
-    #main {
-      position: relative;
-      width: 200px;
-      height: 200px;
-      background-color: lightblue;
-    }
-  
-    #hei {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100px;
-      height: 100px;
-      background-color: rgba(0, 0, 0, 0);
-    }
-  </style>
-  
-  <div id="main">
-    <!-- 这是 main div -->
-    <div id="hei">
-      <!-- 这是 hei div -->1
-      
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+
+    <title>Apollo试验基地</title>
+    <link rel="stylesheet" href="./index.css">
+</head>
+
+<body>
+    <div class="container">
+        <div class="box">
+            <div class="leftdiv">
+                <div id="highlight"></div>
+                <ul>
+                    <li id="parent1"><button>主页</button></li>
+                    <li id="parent2"><button>实验</button></li>
+                    <li id="parent3"><button>娱乐</button></li>
+                    <li id="parent4"><button>GPT</button></li>
+                </ul>
+            </div>
+            <div class="rightdiv">
+                <div id="homediv">
+                    <div><a href="./home.html">
+                            <div class="app"><img src="./svg/home.svg" alt=""></div>
+                            <div class="apptext">瑞利硕丰</div>
+                        </a></div>
+                </div>
+                <div id="experimentdiv">
+                    <div><a href="./green.html">
+                            <div class="app"><img src="./svg/juice.svg" alt=""></div>
+                            <div class="apptext">奶茶</div>
+                        </a></div>
+                </div>
+                <div id="entertainment">
+                    <div><a href="./shop/shop.html">
+                            <div class="app"><img src="./svg/paper-money-two.svg" alt=""></div>
+                            <div class="apptext">虚拟购物</div>
+                        </a></div>
+                    <div><a href="./ggl/ggl.html">
+                            <div class="app"><img src="./svg/ggl.svg" alt=""></div>
+                            <div class="apptext">刮刮乐</div>
+                        </a></div>
+                </div>
+                <div id="gptdiv">
+                    <div><a href="https://apollogpt.zeabur.app">
+                            <div class="app"><img src="./svg/gpt.svg" alt="svg Icon"></div>
+                            <div class="apptext">GPT</div>
+                        </a></div>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
-  
+
+
 </body>
+<script>
+    document.getElementById('highlight').style.width = document.getElementById('parent1').offsetWidth + "px";
+    document.getElementById('highlight').style.top = document.getElementById('parent1').offsetTop + "px";
+    document.getElementById('highlight').style.height = document.getElementById('parent1').offsetHeight + "px";
+    document.getElementById('homediv').style.display = "none";
+    document.getElementById('experimentdiv').style.display = "none";
+    document.getElementById('entertainment').style.display = "none";
+    document.getElementById('gptdiv').style.display = "none";
+
+    // 获取第一个按钮的位置属性
+    document.getElementById('parent1').addEventListener('click', function () {
+        document.getElementById('highlight').style.width = document.getElementById('parent1').offsetWidth + "px";
+        document.getElementById('highlight').style.top = document.getElementById('parent1').offsetTop + "px";
+        document.getElementById('highlight').style.height = document.getElementById('parent1').offsetHeight + "px";
+        document.getElementById('homediv').style.display = "grid";
+        document.getElementById('experimentdiv').style.display = "none";
+        document.getElementById('entertainment').style.display = "none";
+        document.getElementById('gptdiv').style.display = "none";
+      //改变字体颜色
+        document.getElementById('parent1').querySelector('button').style.color = "white";
+        document.getElementById('parent2').querySelector('button').style.color = "black";
+        document.getElementById('parent3').querySelector('button').style.color = "black";
+        document.getElementById('parent4').querySelector('button').style.color = "black";
+    });
+    // 获取第二个按钮的位置属性
+    document.getElementById('parent2').addEventListener('click', function () {
+        document.getElementById('highlight').style.width = document.getElementById('parent2').offsetWidth + "px";
+        document.getElementById('highlight').style.top = document.getElementById('parent2').offsetTop + "px";
+        document.getElementById('highlight').style.height = document.getElementById('parent2').offsetHeight + "px";
+        document.getElementById('homediv').style.display = "none";
+        document.getElementById('experimentdiv').style.display = "grid";
+        document.getElementById('entertainment').style.display = "none";
+        document.getElementById('gptdiv').style.display = "none";
+      //改变字体颜色
+        document.getElementById('parent1').querySelector('button').style.color = "black";
+        document.getElementById('parent2').querySelector('button').style.color = "white";
+        document.getElementById('parent3').querySelector('button').style.color = "black";
+        document.getElementById('parent4').querySelector('button').style.color = "black";
+    });
+    // 获取第三个按钮的位置属性
+    document.getElementById('parent3').addEventListener('click', function () {
+        document.getElementById('highlight').style.width = document.getElementById('parent3').offsetWidth + "px";
+        document.getElementById('highlight').style.top = document.getElementById('parent3').offsetTop + "px";
+        document.getElementById('highlight').style.height = document.getElementById('parent3').offsetHeight + "px";
+        document.getElementById('homediv').style.display = "none";
+        document.getElementById('experimentdiv').style.display = "none";
+        document.getElementById('entertainment').style.display = "grid";
+        document.getElementById('gptdiv').style.display = "none";
+      //改变字体颜色
+        document.getElementById('parent1').querySelector('button').style.color = "black";
+        document.getElementById('parent2').querySelector('button').style.color = "black";
+        document.getElementById('parent3').querySelector('button').style.color = "white";
+        document.getElementById('parent4').querySelector('button').style.color = "black";
+    });
+    // 获取第四个按钮的位置属性
+    document.getElementById('parent4').addEventListener('click', function () {
+        document.getElementById('highlight').style.width = document.getElementById('parent4').offsetWidth + "px";
+        document.getElementById('highlight').style.top = document.getElementById('parent4').offsetTop + "px";
+        document.getElementById('highlight').style.height = document.getElementById('parent4').offsetHeight + "px";
+        document.getElementById('homediv').style.display = "none";
+        document.getElementById('experimentdiv').style.display = "none";
+        document.getElementById('entertainment').style.display = "none";
+        document.getElementById('gptdiv').style.display = "grid";
+      //改变字体颜色
+        document.getElementById('parent1').querySelector('button').style.color = "black";
+        document.getElementById('parent2').querySelector('button').style.color = "black";
+        document.getElementById('parent3').querySelector('button').style.color = "black";
+        document.getElementById('parent4').querySelector('button').style.color = "white";
+    });
+    window.addEventListener("resize", handleResize);
+    function handleResize() {
+        document.getElementById('highlight').style.width = document.getElementById('parent1').offsetWidth + "px";
+        document.getElementById('highlight').style.height = document.getElementById('parent1').offsetHeight + "px";
+        document.getElementById('highlight').style.top = document.getElementById('parent1').offsetTop + "px";
+    }
+</script>
+
 </html>

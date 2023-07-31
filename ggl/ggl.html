@@ -23,7 +23,7 @@
         }
 
         #number {
-            font-size: 80px;
+            font-size: 90px;
             -webkit-user-select: none;
             /* Safari */
             -moz-user-select: none;
@@ -54,6 +54,10 @@
             color: yellow;
         }
 
+        #rightdiv {
+            width: 600px;
+            float: right;
+        }
 
         body {
             margin: 0;
@@ -61,7 +65,7 @@
     </style>
 </head>
 
-<body>
+<body onload="showDisclaimer()">
     <div class="ticket">
         <div class="header_title">
             刮刮乐
@@ -75,15 +79,24 @@
             <canvas id="myCanvas" width="400" height="300"></canvas>
         </div>
         <button onclick="refresh()">刷新</button>
+
     </div>
 
+
+
+
     <script>
+        function showDisclaimer() {
+            alert("免责声明：\n1.网站内容：本网站仅用于娱乐和模拟目的。网站上的所有彩票刮开效果和奖项仅为虚拟展示，不具有任何真实的彩票价值和奖金。\n2.责任限制：本网站不对任何因使用本网站而导致的损失或损害承担责任。这包括但不限于任何直接或间接的损失、利润损失、数据损失或业务中断。\n3.风险承担：使用本网站进行模拟刮彩票的行为属于个人自愿行为。您应意识到模拟刮彩票的结果是随机的，并且不保证获得任何奖项或回报。您应自行承担使用本网站的风险。");
+        }
         let canvas = document.getElementById('myCanvas');
         let context = canvas.getContext("2d");
         let isDrawing = false; // 是否正在绘制涂层
         let lastX = 0; // 上一次绘制的X坐标
         let lastY = 0; // 上一次绘制的Y坐标
         let erasedPixels = 0; // 刮开的像素数
+        const isrefresh = 0.75;  //刮开多少像素可以刷新
+        let note = 100;
 
         // 绘制灰色画布
         function drawGreyCanvas() {
@@ -136,8 +149,8 @@
             [lastX, lastY] = [x, y]; // 更新上一次绘制的坐标
 
             // 判断刮开的区域是否超过95%
-            if (erasedPixels / (canvas.width * canvas.height) >= 0.95) {
-                //context.clearRect(0, 0, canvas.width, canvas.height);
+            if (erasedPixels / (canvas.width * canvas.height) >= isrefresh) {
+                context.clearRect(0, 0, canvas.width, canvas.height);
 
             }
         });
@@ -169,9 +182,8 @@
             [lastX, lastY] = [x, y]; // 更新上一次绘制的坐标
 
             // 判断刮开的区域是否超过95%
-            if (erasedPixels / (canvas.width * canvas.height) >= 0.95) {
-                //context.clearRect(0, 0, canvas.width, canvas.height);
-
+            if (erasedPixels / (canvas.width * canvas.height) >= isrefresh) {
+                context.clearRect(0, 0, canvas.width, canvas.height);
             }
         });
 
@@ -249,9 +261,8 @@
                 [lastX, lastY] = [x, y]; // 更新上一次绘制的坐标
 
                 // 判断刮开的区域是否超过95%
-                if (erasedPixels / (canvas.width * canvas.height) >= 0.95) {
-                    //context.clearRect(0, 0, canvas.width, canvas.height);
-
+                if (erasedPixels / (canvas.width * canvas.height) >= isrefresh) {
+                    context.clearRect(0, 0, canvas.width, canvas.height);
                 }
             });
 
@@ -282,9 +293,8 @@
                 [lastX, lastY] = [x, y]; // 更新上一次绘制的坐标
 
                 // 判断刮开的区域是否超过95%
-                if (erasedPixels / (canvas.width * canvas.height) >= 0.95) {
-                    //context.clearRect(0, 0, canvas.width, canvas.height);
-
+                if (erasedPixels / (canvas.width * canvas.height) >= isrefresh) {
+                    context.clearRect(0, 0, canvas.width, canvas.height);
                 }
             });
 
@@ -334,8 +344,12 @@
 
     // console.log(result); // 输出按照概率生成的十个数
 
+</script>
 
-
+<script>
+    function nextfunction() {
+        console.log("11");
+    }
 </script>
 
 </html>

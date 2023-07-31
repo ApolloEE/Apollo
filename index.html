@@ -46,7 +46,7 @@
                 </div>
                 <div id="gptdiv">
                     <div><a href="https://apollogpt.zeabur.app">
-                            <div class="app"><img src="./svg/gpt.svg" alt="svg Icon" width="36px"></div>
+                            <div class="app"><img src="./svg/gpt.svg" alt="svg Icon"></div>
                             <div class="apptext">GPT</div>
                         </a></div>
                 </div>
@@ -58,14 +58,12 @@
 </body>
 <script>
     document.getElementById('highlight').style.width = document.getElementById('parent1').offsetWidth + "px";
-    document.getElementById('highlight').style.top = document.getElementById('parent1').offsetTop + "px";
+    document.getElementById('highlight').style.top = "-100px";
     document.getElementById('highlight').style.height = document.getElementById('parent1').offsetHeight + "px";
     document.getElementById('homediv').style.display = "none";
     document.getElementById('experimentdiv').style.display = "none";
     document.getElementById('entertainment').style.display = "none";
     document.getElementById('gptdiv').style.display = "none";
-
-
 
     // 获取第一个按钮的位置属性
     document.getElementById('parent1').addEventListener('click', function () {
@@ -76,8 +74,13 @@
         document.getElementById('experimentdiv').style.display = "none";
         document.getElementById('entertainment').style.display = "none";
         document.getElementById('gptdiv').style.display = "none";
+        //改变字体颜色
+        document.getElementById('parent1').querySelector('button').style.color = "white";
+        document.getElementById('parent2').querySelector('button').style.color = "black";
+        document.getElementById('parent3').querySelector('button').style.color = "black";
+        document.getElementById('parent4').querySelector('button').style.color = "black";
     });
-    // 获取第一个按钮的位置属性
+    // 获取第二个按钮的位置属性
     document.getElementById('parent2').addEventListener('click', function () {
         document.getElementById('highlight').style.width = document.getElementById('parent2').offsetWidth + "px";
         document.getElementById('highlight').style.top = document.getElementById('parent2').offsetTop + "px";
@@ -86,8 +89,13 @@
         document.getElementById('experimentdiv').style.display = "grid";
         document.getElementById('entertainment').style.display = "none";
         document.getElementById('gptdiv').style.display = "none";
+        //改变字体颜色
+        document.getElementById('parent1').querySelector('button').style.color = "black";
+        document.getElementById('parent2').querySelector('button').style.color = "white";
+        document.getElementById('parent3').querySelector('button').style.color = "black";
+        document.getElementById('parent4').querySelector('button').style.color = "black";
     });
-    // 获取第一个按钮的位置属性
+    // 获取第三个按钮的位置属性
     document.getElementById('parent3').addEventListener('click', function () {
         document.getElementById('highlight').style.width = document.getElementById('parent3').offsetWidth + "px";
         document.getElementById('highlight').style.top = document.getElementById('parent3').offsetTop + "px";
@@ -96,8 +104,13 @@
         document.getElementById('experimentdiv').style.display = "none";
         document.getElementById('entertainment').style.display = "grid";
         document.getElementById('gptdiv').style.display = "none";
+        //改变字体颜色
+        document.getElementById('parent1').querySelector('button').style.color = "black";
+        document.getElementById('parent2').querySelector('button').style.color = "black";
+        document.getElementById('parent3').querySelector('button').style.color = "white";
+        document.getElementById('parent4').querySelector('button').style.color = "black";
     });
-    // 获取第一个按钮的位置属性
+    // 获取第四个按钮的位置属性
     document.getElementById('parent4').addEventListener('click', function () {
         document.getElementById('highlight').style.width = document.getElementById('parent4').offsetWidth + "px";
         document.getElementById('highlight').style.top = document.getElementById('parent4').offsetTop + "px";
@@ -106,6 +119,11 @@
         document.getElementById('experimentdiv').style.display = "none";
         document.getElementById('entertainment').style.display = "none";
         document.getElementById('gptdiv').style.display = "grid";
+        //改变字体颜色
+        document.getElementById('parent1').querySelector('button').style.color = "black";
+        document.getElementById('parent2').querySelector('button').style.color = "black";
+        document.getElementById('parent3').querySelector('button').style.color = "black";
+        document.getElementById('parent4').querySelector('button').style.color = "white";
     });
     window.addEventListener("resize", handleResize);
     function handleResize() {
