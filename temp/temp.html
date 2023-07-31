@@ -1,238 +1,31 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>刮刮乐</title>
-    <style>
-        .gg {
-            width: 450px;
-            height: 350px;
-            position: absolute;
-            z-index: -1;
-            background: #fff;
-        }
-
-        .main {
-            display: flex;
-            align-items: center;
-            text-align: center;
-            justify-content: center;
-        }
-
-        #number {
-            font-size: 80px;
-            -webkit-user-select: none;
-            /* Safari */
-            -moz-user-select: none;
-            /* Firefox */
-            -ms-user-select: none;
-            /* IE10+/Edge */
-            user-select: none;
-            /* Standard */
-        }
-
-        .ticket {
-            width: 600px;
-            height: 600px;
-            background-color: red;
-            position: absolute;
-            z-index: 0;
-            /* top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%); */
-        }
-
-        .header_title {
-            margin-top: 80px;
-            margin-bottom: 40px;
-            text-align: center;
-            font-size: 60px;
-            font-weight: 800;
-            color: yellow;
-        }
-
-
-        body {
-            margin: 0;
-        }
-    </style>
-</head>
-
-<body>
-    <div class="ticket">
-        <div class="header_title">
-            刮刮乐
-        </div>
-        <div class="main" id="maindiv">
-            <canvas id="myCanvas" width="400" height="300"></canvas>
-        </div>
-        <button onclick="refresh()">刷新</button>
-    </div>
-
-    <script>
-        let canvas = document.getElementById('myCanvas');
-        let context = canvas.getContext("2d");
-        let isDrawing = false; // 是否正在绘制涂层
-        let lastX = 0; // 上一次绘制的X坐标
-        let lastY = 0; // 上一次绘制的Y坐标
-        let erasedPixels = 0; // 刮开的像素数
-
-        // 绘制灰色画布
-        function drawGreyCanvas() {
-            isDrawing = false;
-            lastX = 0;
-            lastY = 0;
-            erasedPixels = 0;
-            context.fillStyle = "grey";
-            context.fillRect(0, 0, 400, 300); // 设置画布大小
-        }
-
-        // 初始化时绘制灰色画布
-        drawGreyCanvas();
-
-        // 监听鼠标按下事件
-        canvas.addEventListener("mousedown", (e) => {
-            isDrawing = true;
-            [lastX, lastY] = [e.clientX - canvas.offsetLeft, e.clientY - canvas.offsetTop]; // 更新上一次绘制的坐标
-        });
-
-        // 监听鼠标移动事件
-        canvas.addEventListener("mousemove", (e) => {
-            if (!isDrawing) return; // 如果没有按下鼠标，则不进行绘制
-
-            const [x, y] = [e.clientX - canvas.offsetLeft, e.clientY - canvas.offsetTop];
-            context.globalCompositeOperation = "destination-out"; // 橡皮擦模式
-            context.beginPath();
-            context.moveTo(lastX, lastY); // 将起始点移动到上一次绘制的位置
-            context.lineTo(x, y); // 从上一次绘制的位置画一条线到当前位置
-            context.lineWidth = 40; // 设置刮刮乐线的宽度
-            context.lineCap = "round"; // 设置线的末端为圆形
-            context.stroke(); // 绘制路径
-
-            // 统计刮开的像素数
-            const imageData = context.getImageData(0, 0, canvas.width, canvas.height);
-            const pixelData = imageData.data;
-            erasedPixels = 0;
-            for (let i = 3; i < pixelData.length; i += 4) {
-                if (pixelData[i] === 0) {
-                    erasedPixels++;
-                }
-            }
-
-            [lastX, lastY] = [x, y]; // 更新上一次绘制的坐标
-
-            // 判断刮开的区域是否超过95%
-            if (erasedPixels / (canvas.width * canvas.height) >= 0.95) {
-                //context.clearRect(0, 0, canvas.width, canvas.height);
-
-            }
-        });
-
-        // 监听鼠标松开事件
-        canvas.addEventListener("mouseup", () => {
-            isDrawing = false;
-        });
-
-        // 刷新按钮点击事件处理程序
-        function refresh() {
-            // 移除之前的灰色画布元素
-            canvas.parentNode.removeChild(canvas);
-
-            // 创建新的画布元素
-            canvas = document.createElement('canvas');
-            canvas.id = 'myCanvas';
-            canvas.width = 400;
-            canvas.height = 300;
-            const maindiv = document.getElementById('maindiv');
-            maindiv.appendChild(canvas);
-
-            // 重新获取上下文
-            context = canvas.getContext("2d");
-
-            // 绘制新的灰色画布
-            drawGreyCanvas();
-
-            canvas.addEventListener("mousedown", (e) => {
-                isDrawing = true;
-                [lastX, lastY] = [e.clientX - canvas.offsetLeft, e.clientY - canvas.offsetTop]; // 更新上一次绘制的坐标
-            });
-
-            // 监听鼠标移动事件
-            canvas.addEventListener("mousemove", (e) => {
-                if (!isDrawing) return; // 如果没有按下鼠标，则不进行绘制
-
-                const [x, y] = [e.clientX - canvas.offsetLeft, e.clientY - canvas.offsetTop];
-                context.globalCompositeOperation = "destination-out"; // 橡皮擦模式
-                context.beginPath();
-                context.moveTo(lastX, lastY); // 将起始点移动到上一次绘制的位置
-                context.lineTo(x, y); // 从上一次绘制的位置画一条线到当前位置
-                context.lineWidth = 40; // 设置刮刮乐线的宽度
-                context.lineCap = "round"; // 设置线的末端为圆形
-                context.stroke(); // 绘制路径
-
-                // 统计刮开的像素数
-                const imageData = context.getImageData(0, 0, canvas.width, canvas.height);
-                const pixelData = imageData.data;
-                erasedPixels = 0;
-                for (let i = 3; i < pixelData.length; i += 4) {
-                    if (pixelData[i] === 0) {
-                        erasedPixels++;
-                    }
-                }
-
-                [lastX, lastY] = [x, y]; // 更新上一次绘制的坐标
-
-                // 判断刮开的区域是否超过95%
-                if (erasedPixels / (canvas.width * canvas.height) >= 0.95) {
-                    //context.clearRect(0, 0, canvas.width, canvas.height);
-
-                }
-            });
-
-            // 监听鼠标松开事件
-            canvas.addEventListener("mouseup", () => {
-                isDrawing = false;
-            });
-        }
-    </script>
-</body>
-<script>
-    // 给定十个数及其对应的概率
-    const numbers = [0, 1, 2, 5, 10, 50, 100, 200, 500, 1000, 2000];
-    const probabilities = [48, 63, 73, 81, 87, 92, 95, 97, 98.5, 99.5, 100];
-
-    // 生成随机数
-    function getRandomNumber(numbers, probabilities) {
-        const random = Math.random() * 100 + 1; // 生成0到1之间的随机数
-        let cumulativeProbability = 0;
-        console.log(random);
-        for (let i = 0; i < numbers.length; i++) {
-            cumulativeProbability = probabilities[i];
-            if (random < cumulativeProbability) {
-                return numbers[i];
-            }
-        }
-
-        // 如果无法满足概率要求，则返回第一个数
-        return numbers[0];
+  <style>
+    #main {
+      position: relative;
+      width: 200px;
+      height: 200px;
+      background-color: lightblue;
     }
-
-    document.getElementById("number").innerHTML = getRandomNumber(numbers, probabilities) + "元";
-
-    // // 生成十个数
-    // const result = [];
-    // for (let i = 0; i < 20; i++) {
-    //     const number = getRandomNumber(numbers, probabilities);
-    //     result.push(number);
-    // }
-
-    // console.log(result); // 输出按照概率生成的十个数
-
-
-
-</script>
-
+  
+    #hei {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100px;
+      height: 100px;
+      background-color: rgba(0, 0, 0, 0);
+    }
+  </style>
+  
+  <div id="main">
+    <!-- 这是 main div -->
+    <div id="hei">
+      <!-- 这是 hei div -->1
+      
+    </div>
+  </div>
+  
+</body>
 </html>

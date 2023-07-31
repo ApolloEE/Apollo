@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg viewBox="-90 -90 180 180" xmlns="http://www.w3.org/2000/svg"
+    style="background:rgba(0, 0, 0, 0); width: 36px; height: 36px;">
+    <path id="a" fill="black"
+        d="
+      M 0 -23
+      V -32
+      L 52.5 -2
+      Q 55.8 0 56 3.5
+      V 42.7
+      A 44 44 0 0 1 -24.4 70.5
+      H -10
+      A 33.3 33.3 0 0 0 44 46
+      V 2.3">
+    </path>
+    <use href="#a" transform="rotate(60)"></use>
+    <use href="#a" transform="rotate(120)"></use>
+    <use href="#a" transform="rotate(180)"></use>
+    <use href="#a" transform="rotate(240)"></use>
+    <use href="#a" transform="rotate(300)"></use>
+</svg>
