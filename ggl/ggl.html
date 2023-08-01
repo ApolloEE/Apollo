@@ -62,6 +62,9 @@
         body {
             margin: 0;
         }
+        button {
+            display: none;
+        }
     </style>
 </head>
 
@@ -95,7 +98,7 @@
         let lastX = 0; // 上一次绘制的X坐标
         let lastY = 0; // 上一次绘制的Y坐标
         let erasedPixels = 0; // 刮开的像素数
-        const isrefresh = 0.75;  //刮开多少像素可以刷新
+        const isrefresh = 0.6;  //刮开多少像素可以刷新
         let note = 100;
 
         // 绘制灰色画布
@@ -151,7 +154,6 @@
             // 判断刮开的区域是否超过95%
             if (erasedPixels / (canvas.width * canvas.height) >= isrefresh) {
                 context.clearRect(0, 0, canvas.width, canvas.height);
-
             }
         });
 
