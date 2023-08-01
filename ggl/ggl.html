@@ -176,7 +176,7 @@
 </script>
 
 <script>
-    function moneyaddfuc(){
+    function moneyaddfuc() {
         money += parseInt(document.getElementById("number").innerHTML);
         document.getElementById('money').innerHTML = money;
         moneyadd = false;
@@ -187,7 +187,7 @@
 
     function mouse() {
         money -= 10;
-        if(money <0){
+        if (money < 0) {
             money -= 10;
             alert("你破产了！");
             history.back();
@@ -196,15 +196,42 @@
         moneyadd = true;
         // 添加鼠标按下事件和触摸事件的监听器
         canvas.addEventListener('mousedown', handleMouseDown);
-        canvas.addEventListener('touchstart', handleMouseDown);
 
         // 添加鼠标移动事件和触摸移动事件的监听器
         canvas.addEventListener('mousemove', handleMouseMove);
-        canvas.addEventListener('touchmove', handleMouseMove);
 
         // 添加鼠标松开事件和触摸松开事件的监听器
         canvas.addEventListener('mouseup', handleMouseUp);
-        canvas.addEventListener('touchend', handleMouseUp);
+
+        // 添加触摸事件的监听器
+        canvas.addEventListener('touchstart', handleTouchStart);
+        canvas.addEventListener('touchmove', handleTouchMove);
+        canvas.addEventListener('touchend', handleTouchEnd);
+
+        // 触摸事件处理函数
+        function handleTouchStart(e) {
+            e.preventDefault();
+            const touch = e.touches[0];
+            const rect = canvas.getBoundingClientRect();
+            const x = touch.clientX;
+            const y = touch.clientY;
+            handleMouseDown({ clientX: x, clientY: y });
+        }
+
+        function handleTouchMove(e) {
+            e.preventDefault();
+            const touch = e.touches[0];
+            const rect = canvas.getBoundingClientRect();
+            const x = touch.clientX;
+            const y = touch.clientY;
+            handleMouseMove({ clientX: x, clientY: y });
+        }
+
+        function handleTouchEnd(e) {
+            e.preventDefault();
+            handleMouseUp();
+        }
+
 
         function handleMouseDown(e) {
             isDrawing = true;
@@ -240,7 +267,7 @@
             if (erasedPixels / (canvas.width * canvas.height) >= isrefresh) {
                 context.clearRect(0, 0, canvas.width, canvas.height);
                 document.getElementById('but').style.display = "block";
-                if(moneyadd){
+                if (moneyadd) {
                     moneyaddfuc();
                 }
             }
