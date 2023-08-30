@@ -3,15 +3,18 @@
 
 <head>
   <title>节拍器</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
-    h1 {
+    h2 {
       display: inline;
+      font-size: 60px;
     }
 
     .button {
       border-radius: 8px;
-      padding: 10px 20px;
-      font-size: 18px;
+      padding: 15px 25px;
+      font-size: 25px;
       background-color: #68cd6c;
       color: white;
       border: none;
@@ -31,14 +34,15 @@
       justify-content: center;
       align-items: center;
       width: 70%;
+      height: 70vh;
       margin: 0 auto;
       flex-direction: column;
     }
 
     .custom-range {
       -webkit-appearance: none;
-      width: 200px;
-      height: 13px;
+      width: 40%;
+      height: 16px;
       background-color: #ffffff;
       border-radius: 5px;
       outline: none;
@@ -48,15 +52,15 @@
     .custom-range::-webkit-slider-thumb {
       -webkit-appearance: none;
       appearance: none;
-      width: 25px;
-      height: 20px;
+      width: 28px;
+      height: 24px;
       background-color: green;
       border-radius: 20%;
       cursor: pointer;
     }
 
     .op {
-      font-size: 35px;
+      font-size: 65px;
       background-color: rgba(0, 0, 0, 0);
       color: white;
       border: none;
@@ -72,7 +76,7 @@
   <div class="mid">
     <div>
       <button class="op" onclick="reduce()">-</button>
-      <h1 id="jp">120</h1>
+      <h2 id="jp">120</h1>
       <button class="op" onclick="add()">+</button>
     </div>
 
