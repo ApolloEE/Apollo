@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>节拍器</title>
+  <style>
+    h1 {
+      display: inline;
+    }
+
+    .button {
+      border-radius: 8px;
+      padding: 10px 20px;
+      font-size: 18px;
+      background-color: #68cd6c;
+      color: white;
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin: 30px 10px;
+    }
+
+    .button:hover {
+      background-color: #399f3c;
+    }
+
+    .mid {
+      border-radius: 18px;
+      background-color: #a2eca5;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 70%;
+      margin: 0 auto;
+      flex-direction: column;
+    }
+
+    .custom-range {
+      -webkit-appearance: none;
+      width: 200px;
+      height: 13px;
+      background-color: #ffffff;
+      border-radius: 5px;
+      outline: none;
+      margin: 20px;
+    }
+
+    .custom-range::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 25px;
+      height: 20px;
+      background-color: green;
+      border-radius: 20%;
+      cursor: pointer;
+    }
+
+    .op {
+      font-size: 35px;
+      background-color: rgba(0, 0, 0, 0);
+      color: white;
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin: 30px 30px;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>节拍器</h1>
+  <div class="mid">
+    <div>
+      <button class="op" onclick="reduce()">-</button>
+      <h1 id="jp">120</h1>
+      <button class="op" onclick="add()">+</button>
+    </div>
+
+    <input type="range" value="120" max="240" min="1" step="1" oninput="Metronome(this.value)" class="custom-range"
+      id="range">
+    <div id="but">
+      <button class="button" onclick="startbut(),startMetronome()">开始</button>
+    </div>
+
+  </div>
+
+  <script>
+    var intervalId;
+    var tempo = 120; // 初始节拍速度（每分钟的拍数）
+    var k = 1;  //计时器的步数
+    var trigger = false;
+    // 创建音频上下文
+    const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+
+    function add() {
+      document.getElementById('range').value = (parseInt(document.getElementById('range').value) + 1);
+      Metronome(document.getElementById('range').value);
+    }
+
+    function reduce() {
+      document.getElementById('range').value = (parseInt(document.getElementById('range').value) - 1);
+      Metronome(document.getElementById('range').value);
+    }
+
+    function startbut() {
+      k = 1;
+      trigger = true;
+      document.getElementById('but').innerHTML = "<button class=\"button\" onclick=\"stopbut(),stopMetronome()\">停止</button>";
+    }
+    function stopbut() {
+      trigger = false;
+      document.getElementById('but').innerHTML = "<button class=\"button\" onclick=\"startbut(),startMetronome()\">开始</button>";
+    }
+
+    function Metronome(speed) {
+      document.getElementById('jp').innerHTML = speed;
+      tempo = speed;
+      if (trigger == true) {
+        clearInterval(intervalId);
+        startMetronome();
+      }
+    }
+    function playSound() {
+      // 创建振荡器节点
+      const oscillator = audioContext.createOscillator();
+      oscillator.type = 'sine'; // 使用正弦波形
+      if (k == 1) {
+        oscillator.frequency.value = 700; // 设置频率，控制嘟嘟声的音调
+      } else {
+        oscillator.frequency.value = 600; // 设置频率，控制嘟嘟声的音调
+      }
+
+
+      // 连接振荡器节点到音频上下文的目标节点
+      oscillator.connect(audioContext.destination);
+
+      // 启动振荡器
+      oscillator.start();
+
+      // 停止振荡器（在适当的时机调用）
+      oscillator.stop(audioContext.currentTime + 0.1); // 停止振荡器，持续1秒钟
+      k++;
+      if (k > 4) {
+        k = 1;
+      }
+    }
+
+    function startMetronome() {
+      var interval = 60000 / tempo; // 计算每个拍子之间的时间间隔（以毫秒为单位）
+      intervalId = setInterval(function () {
+        playSound();
+      }, interval);
+    }
+
+
+
+    function stopMetronome() {
+      clearInterval(intervalId);
+    }
+  </script>
+</body>
+
+</html>

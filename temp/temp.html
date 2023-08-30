@@ -1,276 +1,56 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>刮刮乐</title>
-    <style>
-        .gg {
-            width: 450px;
-            height: 350px;
-            position: absolute;
-            z-index: -1;
-            background: #fff;
-        }
-
-        .main {
-            display: flex;
-            align-items: center;
-            text-align: center;
-            justify-content: center;
-        }
-
-        #number {
-            font-size: 90px;
-            -webkit-user-select: none;
-            /* Safari */
-            -moz-user-select: none;
-            /* Firefox */
-            -ms-user-select: none;
-            /* IE10+/Edge */
-            user-select: none;
-            /* Standard */
-        }
-
-
-
-        .ticket {
-            width: 600px;
-            height: 600px;
-            background-color: red;
-            position: absolute;
-            z-index: 0;
-            /* top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%); */
-        }
-
-        .header_title {
-            margin-top: 80px;
-            margin-bottom: 40px;
-            text-align: center;
-            font-size: 60px;
-            font-weight: 800;
-            color: yellow;
-            -webkit-user-select: none;
-            /* Safari */
-            -moz-user-select: none;
-            /* Firefox */
-            -ms-user-select: none;
-            /* IE10+/Edge */
-            user-select: none;
-            /* Standard */
-        }
-
-        #rightdiv {
-            width: 600px;
-            float: right;
-        }
-
-        body {
-            margin: 0;
-        }
-
-        button {
-            display: none;
-            -webkit-user-select: none;
-            /* Safari */
-            -moz-user-select: none;
-            /* Firefox */
-            -ms-user-select: none;
-            /* IE10+/Edge */
-            user-select: none;
-            /* Standard */
-        }
-    </style>
+  <title>节拍器</title>
+  <style>
+    .button {
+      padding: 10px 20px;
+      font-size: 18px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+  </style>
 </head>
 
-<body onload="showDisclaimer()">
-    <div class="ticket">
-        <div class="header_title">
-            刮刮乐
-        </div>
-        <div class="main" id="maindiv">
-            <div class="gg">
-                <div>
-                    <p id="number">111</p>
-                </div>
-            </div>
-            <canvas id="myCanvas" width="400" height="300"></canvas>
-        </div>
-        <button id="but" onclick="refresh()">刷新</button>
-        <div id="money"></div>
-    </div>
+<body>
+  <h1>节拍器</h1>
+
+  <button class="button" onclick="startMetronome()">开始</button>
+  <button class="button" onclick="stopMetronome()">停止</button>
+
+  <script>
+    var intervalId;
+    var tempo = 200; // 初始节拍速度（每分钟的拍数）
+
+    function playSound() {
+      // 在这里添加播放声音的代码
+      console.log("播放声音");
+      // 创建音频上下文
+      const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+
+      // 创建振荡器节点
+      const oscillator = audioContext.createOscillator();
+      oscillator.type = 'sine'; // 使用正弦波形
+      oscillator.frequency.value = 500; // 设置频率，控制嘟嘟声的音调
+
+      // 连接振荡器节点到音频上下文的目标节点
+      oscillator.connect(audioContext.destination);
+
+      // 启动振荡器
+      oscillator.start();
+
+      // 停止振荡器（在适当的时机调用）
+      oscillator.stop(audioContext.currentTime + 0.1); // 停止振荡器，持续1秒钟
+
+    }
+
+    function startMetronome() {
+        playSound();
+    }
+  </script>
 </body>
-<!-- 免责声明和变量定义 -->
-<script>
-    function showDisclaimer() {
-        alert("免责声明：\n1.网站内容：本网站仅用于娱乐和模拟目的。网站上的所有彩票刮开效果和奖项仅为虚拟展示，不具有任何真实的彩票价值和奖金。\n2.责任限制：本网站不对任何因使用本网站而导致的损失或损害承担责任。这包括但不限于任何直接或间接的损失、利润损失、数据损失或业务中断。\n3.风险承担：使用本网站进行模拟刮彩票的行为属于个人自愿行为。您应意识到模拟刮彩票的结果是随机的，并且不保证获得任何奖项或回报。您应自行承担使用本网站的风险。");
-    }
-    let canvas = document.getElementById('myCanvas');
-    let context = canvas.getContext("2d");
-    let isDrawing = false; // 是否正在绘制涂层
-    let lastX = 0; // 上一次绘制的X坐标
-    let lastY = 0; // 上一次绘制的Y坐标
-    let erasedPixels = 0; // 刮开的像素数
-    const isrefresh = 0.5;  //刮开多少像素可以刷新
-    let money = 100; //初始金额
-    let moneyadd = false;
-</script>
-<!-- 彩票面值 -->
-<script>
-    // 给定十个数及其对应的概率
-    const numbers = [0, 1, 2, 5, 10, 50, 100, 200, 500, 1000, 2000];
-    const probabilities = [48, 63, 73, 81, 87, 92, 95, 97, 98.5, 99.5, 100];
-
-    // 生成随机数
-    function getRandomNumber(numbers, probabilities) {
-        const random = Math.random() * 100 + 1; // 生成0到1之间的随机数
-        let cumulativeProbability = 0;
-        console.log(random);
-        for (let i = 0; i < numbers.length; i++) {
-            cumulativeProbability = probabilities[i];
-            if (random < cumulativeProbability) {
-                return numbers[i];
-            }
-        }
-
-        // 如果无法满足概率要求，则返回第一个数
-        return numbers[0];
-    }
-
-    document.getElementById("number").innerHTML = getRandomNumber(numbers, probabilities) + "元";
-
-    // // 生成十个数
-    // const result = [];
-    // for (let i = 0; i < 20; i++) {
-    //     const number = getRandomNumber(numbers, probabilities);
-    //     result.push(number);
-    // }
-
-    // console.log(result); // 输出按照概率生成的十个数
-
-</script>
-
-<script>
-    function moneyaddfuc(){
-        money += parseInt(document.getElementById("number").innerHTML);
-        document.getElementById('money').innerHTML = money;
-        moneyadd = false;
-    }
-</script>
-<!-- 鼠标事件 -->
-<script>
-
-    function mouse() {
-        money -= 10;
-        document.getElementById('money').innerHTML = money;
-        moneyadd = true;
-        // 添加鼠标按下事件和触摸事件的监听器
-        canvas.addEventListener('mousedown', handleMouseDown);
-        canvas.addEventListener('touchstart', handleMouseDown);
-
-        // 添加鼠标移动事件和触摸移动事件的监听器
-        canvas.addEventListener('mousemove', handleMouseMove);
-        canvas.addEventListener('touchmove', handleMouseMove);
-
-        // 添加鼠标松开事件和触摸松开事件的监听器
-        canvas.addEventListener('mouseup', handleMouseUp);
-        canvas.addEventListener('touchend', handleMouseUp);
-
-        function handleMouseDown(e) {
-            isDrawing = true;
-            [lastX, lastY] = [e.clientX - canvas.offsetLeft, e.clientY - canvas.offsetTop]; // 更新上一次绘制的坐标
-        }
-
-        // 鼠标移动事件处理函数
-        function handleMouseMove(e) {
-            if (!isDrawing) return; // 如果没有按下鼠标，则不进行绘制
-
-            const [x, y] = [e.clientX - canvas.offsetLeft, e.clientY - canvas.offsetTop];
-            context.globalCompositeOperation = "destination-out"; // 橡皮擦模式
-            context.beginPath();
-            context.moveTo(lastX, lastY); // 将起始点移动到上一次绘制的位置
-            context.lineTo(x, y); // 从上一次绘制的位置画一条线到当前位置
-            context.lineWidth = 40; // 设置刮刮乐线的宽度
-            context.lineCap = "round"; // 设置线的末端为圆形
-            context.stroke(); // 绘制路径
-
-            // 统计刮开的像素数
-            const imageData = context.getImageData(0, 0, canvas.width, canvas.height);
-            const pixelData = imageData.data;
-            erasedPixels = 0;
-            for (let i = 3; i < pixelData.length; i += 4) {
-                if (pixelData[i] === 0) {
-                    erasedPixels++;
-                }
-            }
-
-            [lastX, lastY] = [x, y]; // 更新上一次绘制的坐标
-
-            // 判断刮开的区域是否超过95%
-            if (erasedPixels / (canvas.width * canvas.height) >= isrefresh) {
-                context.clearRect(0, 0, canvas.width, canvas.height);
-                document.getElementById('but').style.display = "block";
-                if(moneyadd){
-                    moneyaddfuc();
-                }
-            }
-        }
-        // 鼠标松开事件处理函数
-        function handleMouseUp(e) {
-            isDrawing = false;
-        }
-    }
-</script>
-
-<script>
-
-
-    // 绘制灰色画布
-    function drawGreyCanvas() {
-        isDrawing = false;
-        lastX = 0;
-        lastY = 0;
-        erasedPixels = 0;
-        context.fillStyle = "grey";
-        context.fillRect(0, 0, 400, 300); // 设置画布大小
-    }
-
-    // 初始化时绘制灰色画布
-    drawGreyCanvas();
-    //添加鼠标事件
-    mouse();
-    // 刷新按钮点击事件处理程序
-    function refresh() {
-        // 移除之前的灰色画布元素
-        canvas.parentNode.removeChild(canvas);
-
-        // 创建新的画布元素
-        canvas = document.createElement('canvas');
-        canvas.id = 'myCanvas';
-        canvas.width = 400;
-        canvas.height = 300;
-
-        //获取maindiv元素的位置，将canvas放到maindiv中
-        const maindiv = document.getElementById('maindiv');
-        maindiv.appendChild(canvas);
-
-        // 重新获取上下文
-        context = canvas.getContext("2d");
-
-        // 绘制新的灰色画布
-        drawGreyCanvas();
-        document.getElementById('but').style.display = "none";
-        //添加鼠标事件
-        mouse();
-        document.getElementById("number").innerHTML = getRandomNumber(numbers, probabilities) + "元";
-    }
-</script>
-
-
-
 
 </html>
