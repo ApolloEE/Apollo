@@ -41,6 +41,7 @@
 
     .custom-range {
       -webkit-appearance: none;
+      -moz-appearance: none;
       width: 50%;
       height: 16px;
       background-color: #ffffff;
@@ -51,6 +52,7 @@
 
     .custom-range::-webkit-slider-thumb {
       -webkit-appearance: none;
+      -moz-appearance: none;
       appearance: none;
       width: 28px;
       height: 24px;
@@ -86,6 +88,30 @@
       .custom-range {
         width: 70%;
       }
+
+      .button {
+        margin-top: 60px;
+      }
+    }
+
+    @media (max-width: 350px) {
+      h2 {
+        font-size: 35px;
+      }
+
+      .mid {
+        width: 80%;
+      }
+
+      .op {
+        margin: 40px 5px;
+        font-size: 40px;
+      }
+
+      .custom-range {
+        width: 70%;
+      }
+
       .button {
         margin-top: 60px;
       }
