@@ -9,6 +9,8 @@
     h2 {
       display: inline;
       font-size: 60px;
+      margin-top: 20px;
+      margin-bottom: 20px;
     }
 
     .button {
@@ -24,19 +26,48 @@
     }
 
     .button:hover {
-      background-color: #399f3c;
+      background-color: rgb(58, 162, 26);
+    }
+
+    .tag>span {
+      margin-top: 30px;
+      padding: 5px 10px;
+      display: inline-block;
+      background-color: rgb(189, 255, 109);
+      border-radius: 8px;
     }
 
     .mid {
       border-radius: 18px;
       background-color: #a2eca5;
-      display: flex;
-      justify-content: center;
-      align-items: center;
+      text-align: center;
       width: 70%;
       height: 70vh;
       margin: 0 auto;
       flex-direction: column;
+      box-shadow: 0 0 25px rgba(0, 0, 0, .1);
+    }
+
+    .bmp {
+      display: flex;
+      justify-content: center;
+    }
+
+    .grid {
+      display: flex;
+      justify-content: center;
+    }
+
+    .grid>.circle {
+      background-color: #fff;
+      width: 23px;
+      height: 23px;
+      margin: 30px 10px;
+      border-radius: 5px;
+    }
+
+    .grid>.active {
+      background-color: rgb(58, 162, 26);
     }
 
     .custom-range {
@@ -56,24 +87,25 @@
       appearance: none;
       width: 28px;
       height: 24px;
-      background-color: green;
+      background-color: rgb(58, 162, 26);
       border-radius: 20%;
       cursor: pointer;
     }
 
     .op {
       font-size: 65px;
+      width: 50px;
       background-color: rgba(0, 0, 0, 0);
       color: white;
       border: none;
       cursor: pointer;
       transition: all 0.3s ease;
-      margin: 30px 30px;
+      margin: auto 30px;
     }
 
     @media (max-width: 550px) {
       h2 {
-        font-size: 50px;
+        font-size: 60px;
       }
 
       .mid {
@@ -81,54 +113,8 @@
       }
 
       .op {
-        margin: 40px 15px;
+        margin: 30px 15px;
         font-size: 50px;
-      }
-
-      .custom-range {
-        width: 70%;
-      }
-
-      .button {
-        margin-top: 60px;
-      }
-    }
-
-    @media (max-width: 350px) {
-      h2 {
-        font-size: 35px;
-      }
-
-      .mid {
-        width: 80%;
-      }
-
-      .op {
-        margin: 40px 5px;
-        font-size: 40px;
-      }
-
-      .custom-range {
-        width: 70%;
-      }
-
-      .button {
-        margin-top: 60px;
-      }
-    }
-
-    @media (max-width: 220px) {
-      h2 {
-        font-size: 30px;
-      }
-
-      .mid {
-        width: 90%;
-      }
-
-      .op {
-        margin: 40px 0px;
-        font-size: 40px;
       }
 
       .custom-range {
@@ -145,12 +131,20 @@
 <body>
   <h1>节拍器</h1>
   <div class="mid">
-    <div>
+    <div class="tag">
+      <span>BPM</span>
+    </div>
+    <div class="bmp">
       <button class="op" onclick="reduce()">-</button>
       <h2 id="jp">120</h1>
         <button class="op" onclick="add()">+</button>
     </div>
-
+    <div class="grid">
+      <div class="circle"></div>
+      <div class="circle"></div>
+      <div class="circle"></div>
+      <div class="circle"></div>
+    </div>
     <input type="range" value="120" max="240" min="1" step="1" oninput="Metronome(this.value)" class="custom-range"
       id="range">
     <div id="but">
@@ -160,6 +154,9 @@
   </div>
 
   <script>
+    const grid = document.querySelector('.grid');
+    const circles = grid.querySelectorAll('.circle');
+
     var intervalId;
     var tempo = 120; // 初始节拍速度（每分钟的拍数）
     var k = 1;  //计时器的步数
@@ -195,6 +192,15 @@
         startMetronome();
       }
     }
+
+    function setActiveCircle(n) {
+      circles[n - 1].classList.add('active');
+      if (n == 1) {
+        n = 5;
+      }
+      circles[n - 2].classList.remove('active');
+    }
+
     function playSound() {
       // 创建振荡器节点
       const oscillator = audioContext.createOscillator();
@@ -214,6 +220,9 @@
 
       // 停止振荡器（在适当的时机调用）
       oscillator.stop(audioContext.currentTime + 0.1); // 停止振荡器，持续1秒钟
+
+      setActiveCircle(k);
+
       k++;
       if (k > 4) {
         k = 1;
@@ -231,6 +240,10 @@
 
     function stopMetronome() {
       clearInterval(intervalId);
+      circles[0].classList.remove('active');
+      circles[1].classList.remove('active');
+      circles[2].classList.remove('active');
+      circles[3].classList.remove('active');
     }
   </script>
 </body>
